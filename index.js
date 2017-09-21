@@ -23,17 +23,37 @@ const detect_content = require('./detect_content');
 app.get('/compare',function (req,res) {
     var keyword = req.query.keyword;
     if (keyword && keyword.length > 0){
-        detect_content.getTA(keyword,
-        function(success) {
-            console.log(success);
-            res.status(200).send({
-                message: 'Tìm thấy '+success.results.length+ ' phù hợp với từ khoá: '+keyword,
-                results: success.results
-            });
-        },
-        function(err) {
-            res.status(500).send(err);
+
+        Promise.all([
+            detect_content.getTA(keyword),
+            detect_content.getFPT(keyword)
+        ]).then(success => {
+            res.status(200).send([
+            {
+                message: 'Tìm thấy '+success[0].results.length+ ' phù hợp với từ khoá: '+keyword,
+                results: success[0].results
+            },
+            {
+                message: 'Tìm thấy '+success[1].results.length+ ' phù hợp với từ khoá: '+keyword,
+                results: success[1].results
+            }
+            ]);
+        }).catch(err => {
+            console.log(err);
         });
+
+
+        // detect_content.getTA(keyword,
+        // function(success) {
+        //     console.log(success);
+        //     res.status(200).send({
+        //         message: 'Tìm thấy '+success.results.length+ ' phù hợp với từ khoá: '+keyword,
+        //         results: success.results
+        //     });
+        // },
+        // function(err) {
+        //     res.status(500).send(err);
+        // });
     } else {
         res.status(400).send({
             message: 'Tìm thấy 0 phù hợp với từ khoá: '+keyword,
