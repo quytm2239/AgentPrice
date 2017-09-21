@@ -1,0 +1,27 @@
+{
+  "name": "agentprice",
+  "version": "1.0.0",
+  "description": "agent price",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quytm2239/AgentPrice.git"
+  },
+  "author": "quytm2239",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quytm2239/AgentPrice/issues"
+  },
+  "homepage": "https://github.com/quytm2239/AgentPrice#readme",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "html-to-json": "^0.6.0",
+    "morgan": "^1.8.2",
+    "winston": "^2.3.1"
+  }
+}
